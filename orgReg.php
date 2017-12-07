@@ -113,6 +113,97 @@
                             <div id="output"></div>
                         </form>
                     </div>
+                    <div id="createEvent">
+                        <form action="#" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Create New Event</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-6">
+                                    <label for="eventName">Event Title</label>
+                                    <br>
+                                    <input type="text" class="form-control" id="newEventName" name="eventname">
+                                </div>
+                                <div class="input-field col-md-6">
+                                    <label for="eventType">Event type</label>
+                                    <br>
+                                    <select class="form-control" id="eventType" name="eventtype">
+                                    <option value="Meeting">Meeting</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Sport">Sport</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Bussiness">Bussiness</option>
+                                    <option value="Other">Other</option>     
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-6">
+                                    <label for="startDate">Starts</label>
+                                    <br>
+                                    <input type="date" class="form-control" id="startDate" name="startdate">
+                                </div>
+                                <div class="input-field col-md-6">
+                                    <label for="startTime">Time</label>
+                                    <br>
+                                    <input type="time" class="form-control" id="startTime" name="starttime">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-6">
+                                    <label for="endDate">Ends</label>
+                                    <br>
+                                    <input type="date" class="form-control" id="endDate" name="enddate">
+                                </div>
+                                <div class="input-field col-md-6">
+                                    <label for="endTime">Time</label>
+                                    <br>
+                                    <input type="time" class="form-control" id="endTime" name="endtime">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-12">
+                                    <label for="eventDesc">Event Description</label>
+                                    <br>
+                                    <textarea name="eventdesc" id="eventDesc" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br>
+                                    <h4>Location</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-12">
+                                    <label for="selectLoc">Select  Location : </label>
+                                    <?php
+                                    include ("db/database.php");   
+                                    //query
+                                    $sql=mysqli_query($con,"SELECT LocationID,LocationName FROM location");
+                                    if(mysqli_num_rows($sql)){
+                                    $select= '<select name="select">';
+                                    while($rs=mysqli_fetch_array($sql,MYSQLI_ASSOC)){
+                                          $select.='<option value="'.$rs['LocationID'].'">'.$rs['LocationName'].'</option>';
+                                      }
+                                    }
+                                    $select.='</select>';
+                                    echo $select;
+                                    ?>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-primary" id="createEventBtn">Create</button>
+                            
+                            <div id="output"></div>
+                        </form>
+                    </div>
                     <!-- <span class="btn btn-info xbtn">Check Status</span> -->
                     <div id="organizer">
                         <h3>Organizer profile</h3>
@@ -347,11 +438,13 @@
                             $('#formlogout').show();
                             $('#application').hide();
                             $('#organizer').show();
+                            $('#createEvent').hide();
                         } else {
                             $('#formlogin').show();
                             $('#formlogout').hide();
                             $('#application').show();
                             $('#organizer').hide();
+                            $('#createEvent').hide();
                         }
                     }
                 })
@@ -471,6 +564,9 @@
             $('#closeOrg').click(function () {
                 loadReq();
                 loadModalEdit();
+            });
+            $('#createBtn').click(function () {
+                $('#createEvent').show();
             });
         });
     </script>
