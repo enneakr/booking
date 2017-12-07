@@ -4,14 +4,17 @@ session_start();
 $message = array();
 $error = false;
 
-    
-    $facebook = cleanup($con,$_POST['facebook']);
-    $line = cleanup($con,$_POST['line']);    
-    $website = cleanup($con,$_POST['website']);  
-
     $regid = $_SESSION['login_org'];
-    $sql = "UPDATE organizer set Facebook = '$facebook', Line = '$line', Website = '$website' WHERE RegID = $regid ";
+    $sql = "SELECT * from organizer WHERE RegID = $regid ";
     $result = $con->query($sql);
+    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    
+    $facebook = (empty($_POST['facebook']))? $row['Facebook'] :cleanup($con,$_POST['facebook']);
+    $line = (empty($_POST['line']))? $row['Line'] :cleanup($con,$_POST['line']);    
+    $website = (empty($_POST['website']))? $row['Website'] :cleanup($con,$_POST['website']);  
+
+    $sql2= "UPDATE organizer set Facebook = '$facebook', Line = '$line', Website = '$website' WHERE RegID = $regid ";
+    $result2 = $con->query($sql2);
 
     $message["type"] = 'SUCCESS';
 

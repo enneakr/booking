@@ -155,24 +155,69 @@
                             <label for="edit_org_desc" class="col-form-label">Description:</label>
                             <textarea class="form-control" id="edit_org_desc" disabled></textarea>
                         </div>
+                        <div class="form-group">
+                        <div class="form-inline">
+                            <input type="email" class="form-control" id="edit_org_email" size=42 placeholder="Email">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-success" id="addEmail">Add</button>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                        <div class="form-inline">
+                            <input type="tel" class="form-control" id="edit_org_tel" size=42 placeholder="Tel">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-success" id="addTel">Add</button>
+                            </div>
+                        </div>
+                        </div>
+                        <br>
                         <div id="emailsectest"></div>
                         <div id="telsectest"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeOrg">Close</button>
                     <button type="button" class="btn btn-primary" id="saveOrg">Save</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        $(document).ready(function () {
+        function delEmail(email) {
+            $(document).ready(function () {
+                console.log(email);
+                var sendDelEmail = 'email=' + email;
+                $.ajax({
+                    type: "GET",
+                    url: "delOrgEmail.php",
+                    data: sendDelEmail,
+                    datatype: 'json',
+                    success: function(data){
+                        console.log(data);
+                        loadModalEdit();
+                    }
+                })
+            });
+        }
+        function delTel(tel) {
+            $(document).ready(function () {
+                console.log(tel);
+                var sendDelTel = 'tel=' + tel;
+                $.ajax({
+                    type: "GET",
+                    url: "delOrgTel.php",
+                    data: sendDelTel,
+                    datatype: 'json',
+                    success: function(data){
+                        console.log(data);
+                        loadModalEdit();
+                    }
+                })
+            });
+        }
 
-            checkstatus();
-            loadReq();
-
-            function loadModalEdit(){
+        function loadModalEdit(){
                 var select2 = 'selector=' + 2;
                 var select3 = 'selector=' + 3;
                 //modal.find('.modal-body input').val();
@@ -185,10 +230,10 @@
                         console.log(data);
                         var index;
                         var out =
-                        "<table><tr><td>Email:</td><td><button type=\"button\" class=\"btn btn-success\" id=\"addEmail\" >Add</button></td></tr>";
+                        "<table><tr><td>Email:</td><td></td></tr>";
                         for (index = 0; index < data.length; index++) {
                             out += "<tr><td>" + data[index]['EmailAddress'] +
-                                "</td><td><button type=\"button\" class=\"btn btn-danger\" id=\"delEmail\" >Delete</button></td></tr>";
+                                "</td><td><button type=\"button\" class=\"btn btn-danger\" id=\"delOrgEmail\" onclick=\"delEmail('"+data[index]['EmailAddress']+"')\">Delete</button></td></tr>";
                         }
                         out += "</table>";
                         document.getElementById("emailsectest").innerHTML = out;
@@ -203,16 +248,23 @@
                         console.log(data);
                         var index;
                         var out =
-                            "<table><tr><td>Tel:</td><td><button type=\"button\" class=\"btn btn-success\" id=\"addTel\" >Add</button></td></tr>";
+                            "<table><tr><td>Tel:</td><td></td></tr>";
                         for (index = 0; index < data.length; index++) {
                             out += "<tr><td>" + data[index]['Tel'] +
-                                "</td><td><button type=\"button\" class=\"btn btn-danger\" id=\"delTel\" >Delete</button></td></tr>";
+                                "</td><td><button type=\"button\" class=\"btn btn-danger\" id=\"delOrgTel\" onclick=\"delTel('"+data[index]['Tel']+"')\" >Delete</button></td></tr>";
                         }
                         out += "</table>"
                         document.getElementById("telsectest").innerHTML = out;
                     }
                 })
-            }
+                
+            }        
+
+        $(document).ready(function () {
+
+            checkstatus();
+            loadReq();
+
 
             $('#exampleModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget) // Button that triggered the modal
@@ -283,10 +335,6 @@
                     }
                 })
             }
-
-            $('.xbtn').click(function () {
-                checkstatus();
-            });
 
             function checkstatus() {
                 $.ajax({
@@ -370,10 +418,37 @@
                             console.log(data);
                             if (data['type'] == 'SUCCESS') {
                                 loadReq();
+                                loadModalEdit();
                             }
                         }
                     });
                 }
+            });
+            $('#addEmail').click(function () {
+                var email = $("#edit_org_email").val();
+                console.log(email);
+                var dataAddOrgEmail = 'email='+ email;
+                if (dataAddOrgEmail) {
+                    $.ajax({
+                        type: "POST",
+                        url: "addOrgMail.php",
+                        data: dataAddOrgEmail,
+                        datatype: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data['type'] == 'SUCCESS') {
+                                loadReq();
+                                loadModalEdit();
+                            }
+                        }
+                    });
+                }
+                loadReq();
+                loadModalEdit();
+            });
+            $('#closeOrg').click(function () {
+                loadReq();
+                loadModalEdit();
             });
         });
     </script>
