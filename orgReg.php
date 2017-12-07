@@ -446,6 +446,28 @@
                 loadReq();
                 loadModalEdit();
             });
+            $('#addTel').click(function () {
+                var tel = $("#edit_org_tel").val();
+                console.log(tel);
+                var dataAddOrgTel = 'tel='+ tel;
+                if (dataAddOrgTel) {
+                    $.ajax({
+                        type: "POST",
+                        url: "addOrgTel.php",
+                        data: dataAddOrgTel,
+                        datatype: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data['type'] == 'SUCCESS') {
+                                loadReq();
+                                loadModalEdit();
+                            }
+                        }
+                    });
+                }
+                loadReq();
+                loadModalEdit();
+            });
             $('#closeOrg').click(function () {
                 loadReq();
                 loadModalEdit();
