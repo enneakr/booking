@@ -124,7 +124,7 @@
                                 <div class="input-field col-md-6">
                                     <label for="eventName">Event Title</label>
                                     <br>
-                                    <input type="text" class="form-control" id="newEventName" name="eventname">
+                                    <input type="text" class="form-control" id="eventName" name="eventname">
                                 </div>
                                 <div class="input-field col-md-6">
                                     <label for="eventType">Event type</label>
@@ -184,18 +184,71 @@
                                 <div class="input-field col-md-12">
                                     <label for="selectLoc">Select  Location : </label>
                                     <?php
-                                    include ("db/database.php");   
-                                    //query
-                                    $sql=mysqli_query($con,"SELECT LocationID,LocationName FROM location");
-                                    if(mysqli_num_rows($sql)){
-                                    $select= '<select name="select">';
-                                    while($rs=mysqli_fetch_array($sql,MYSQLI_ASSOC)){
-                                          $select.='<option value="'.$rs['LocationID'].'">'.$rs['LocationName'].'</option>';
-                                      }
-                                    }
-                                    $select.='</select>';
-                                    echo $select;
+                                    include ("getLoc.php");   
                                     ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-12">
+                                    <div class="form-group">
+                                        <br>
+                                        <input type="text" class="form-control" id="addLocation" placeholder="Location">
+                                        <br>
+                                        <textarea class="form-control" id="addLocationDesc" placeholder="Location Description" disabled></textarea>
+                                        <br>
+                                        <input type="text" class="form-control" id="mapUrl" placeholder="Map Url" disabled>
+                                        <br>
+                                        <button type="button" class="btn btn-success" id="addLoc">Add</button>   
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br>
+                                    <h4>Create a Ticket</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-12">
+                                    <label for="ticketName">Ticket Title</label>
+                                    <br>
+                                    <input type="text" class="form-control" id="ticketName" name="ticketname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-6">
+                                    <label for="quantity">Quantity</label>
+                                    <br>
+                                    <input type="number" class="form-control" id="quantity" name="quantity">
+                                </div>
+                                <div class="input-field col-md-6">
+                                    <label for="ticketPrice">Price</label>
+                                    <br>
+                                    <input type="number" class="form-control" id="ticketPrice" name="price" placeholder="฿">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-6">
+                                    <label for="startRegDate">Available</label>
+                                    <br>
+                                    <input type="date" class="form-control" id="startRegDate" name="startregdate">
+                                </div>
+                                <div class="input-field col-md-6">
+                                    <label for="startRegTime">Time</label>
+                                    <br>
+                                    <input type="time" class="form-control" id="startRegTime" name="startregtime">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col-md-6">
+                                    <label for="endRegDate">Until</label>
+                                    <br>
+                                    <input type="date" class="form-control" id="endRegDate" name="endregdate">
+                                </div>
+                                <div class="input-field col-md-6">
+                                    <label for="endRegTime">Time</label>
+                                    <br>
+                                    <input type="time" class="form-control" id="endRegTime" name="endregtime">
                                 </div>
                             </div>
                             <br>
@@ -560,6 +613,63 @@
                 }
                 loadReq();
                 loadModalEdit();
+            });
+            $('#createEventBtn').click(function () {
+                var eventname = $("#eventName").val();
+                var eventtype = $("#eventType").val();
+                var startdate = $("#startDate").val();
+                var starttime = $("#startTime").val();                                
+                var enddate = $("#endDate").val();
+                var endtime = $("#endTime").val();                                                                                
+                var eventdesc = $("#eventDesc").val();      
+                var location = $("#selectLoc").val();                                                                                
+                
+                var ticketname = $("#ticketName").val();
+                var quantity = $("#quantity").val();
+                var ticketprice = $("#ticketPrice").val();
+                var startregdate = $("#startRegDate").val();
+                var startregtime = $("#startRegTime").val();                                
+                var endregdate = $("#endRegDate").val();
+                var endregtime = $("#endRegTime").val();                              
+                                                
+                var dataAddEvent = 'eventname='+ eventname +'&eventtype='+eventtype+'&startdate='+startdate+'&starttime='+starttime;
+                dataAddEvent += '&enddate='+ enddate +'&endtime='+endtime+'&eventdesc='+eventdesc+'&location='+location;
+                dataAddEvent += '&ticketname='+ ticketname +'&quantity='+quantity+'&ticketprice='+ticketprice+'&startregdate='+startregdate;                
+                dataAddEvent += '&startregtime='+ startregtime +'&endregdate='+endregdate+'&endregtime='+endregtime;                
+                
+                console.log(dataAddEvent);
+                if (dataAddEvent) {
+                    $.ajax({
+                        type: "POST",
+                        url: "addEvent.php",
+                        data: dataAddEvent,
+                        datatype: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data['type'] == 'SUCCESS') {
+                            }
+                        }
+                    });
+                }
+            });
+            $('#addLoc').click(function () {
+                var loc = $("#addLocation").val();
+                console.log(loc);
+                var dataAddLoc = 'loc='+ loc;
+                if (dataAddLoc) {
+                    $.ajax({
+                        type: "POST",
+                        url: "addLoc.php",
+                        data: dataAddLoc,
+                        datatype: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data['type'] == 'SUCCESS') {
+                                $('#selectLoc').load('getLoc.php');
+                            }
+                        }
+                    });
+                }
             });
             $('#closeOrg').click(function () {
                 loadReq();
