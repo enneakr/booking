@@ -13,21 +13,25 @@
 </head>
 <body>
     <div class="container">
+        <div class="col-md-7 col-md-offset-2">
+        <div class="panel">
+        <div class="panel-body">
         <div id="loginform">
             <form action="#" method="post">
                 <div id="formlogin" class="newlogin">
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <label for="logusername">Username</label><br>
                             <input type="text" id="logusername" name="username">
-                            <label for="logusername">Username</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <label for="logpassword">Password</label><br>
                             <input type="password" id="logpassword" name="password">
-                            <label for="logpassword">Password</label>
                         </div>
                     </div>
+                    <br>
                     <span class="btn btn-primary sbtn" id="loginBtn">Login</span>
                 </div>
                 <div id="formlogout" class="newlogin">
@@ -39,44 +43,47 @@
     <br><hr><br>
         <div id="registration">
             <form action="#" method="post">
-                
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <label for="regusername">Username</label><br> 
                             <input type="text" id="regusername" name="username">
-                            <label for="regusername">Username</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <label for="regpassword">Password</label><br>
                             <input type="password" id="regpassword" name="password">
-                            <label for="regpassword">Password</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col-md-12">
+                        <label for="regfname">Firstname</label><br>
                             <input type="text" id="regfname" name="firstname">
-                            <label for="regfname">Firstname</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <label for="reglname">Lastname</label><br>
                             <input type="text" id="reglname" name="lastname">
-                            <label for="reglname">Lastname</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col-md-12">
+                            <label for="regemail">Email</label><br>
                             <input type="email" id="regemail" name="email">
-                            <label for="regemail">Email</label>
                         </div>
                     </div>
+                    <br>
                     <span class="btn btn-primary sbtn" id="regBtn">Register</span>
 
                
                 <div id="output"></div>
             </form>
         </div>
-        <span class="btn btn-info xbtn">Check Status</span>
+        <!-- <span class="btn btn-info xbtn">Check Status</span> -->
+        </div>        
+        </div>        
+        </div>        
     </div>
     <script>
         $(document).ready(function(){

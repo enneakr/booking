@@ -1,5 +1,5 @@
 <?php
-include ("database.php");
+include ("db/database.php");
 session_start();
 $message = array();
 $error = false;

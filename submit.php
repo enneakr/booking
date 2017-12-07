@@ -1,7 +1,7 @@
 <?php
 
 // database connection
-require_once 'database.php';
+require_once 'db/database.php';
 
 $email = cleanup($con,$_POST['email']);
 $password = md5(cleanup($con,$_POST['password']));

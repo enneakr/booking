@@ -1,5 +1,5 @@
 <?php
-include('database.php');
+include('db/database.php');
 
 if(isset($_GET['email'])){$email=cleanup($con,$_GET['email']);}
 if(isset($_GET['token'])){$token=cleanup($con,$_GET['token']);}
