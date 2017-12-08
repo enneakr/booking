@@ -56,14 +56,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col-md-12">
+                                    <div class="input-field col-md-12" style="padding: 0rem 10rem 0rem 10rem;margin:1rem 0rem 0rem 0rem">
                                         <label for="logusername">Username</label>
                                         <br>
-                                        <input type="text" class="form-control" id="logusername" name="username">
+                                        <input type="text"class="form-control" id="logusername" name="username">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col-md-12">
+                                    <div class="input-field col-md-12" style="padding: 0rem 10rem 0rem 10rem;margin:1rem 0rem 0rem 0rem">
                                         <label for="logpassword">Password</label>
                                         <br>
                                         <input type="password" class="form-control" id="logpassword" name="password">

@@ -61,7 +61,7 @@
                 <tr><td></td><td class="text-left"><img src="'.$row["HeaderUrl"].'" style="max-width:100%;
                 max-height:100%;"></td></tr>
                 <tr><td></td><th class="text-left"><h4>'.$row["EventName"].'</h4></th><td></td></tr>
-                <tr><td>Start On</td><td>'.$row["StartEventDate"].'</td><td>'.$row["StartEventTime"].'</td></tr>
+                <tr><td class="inline-text" >Start On</td><td>'.$row["StartEventDate"].'</td><td>'.$row["StartEventTime"].'</td></tr>
                 <tr><td>Until</td><td>'.$row["EndEventDate"].'</td><td>'.$row["EndEventTime"].'</td></tr>
                 <tr><td></td><td class="text-left">'.$row["Description"].'</td></tr></table>';
         
