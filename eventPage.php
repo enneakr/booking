@@ -46,9 +46,54 @@
     <div class="container">
     <div style="margin-top: 50px;"></div>
     <div class="card col-md-8 offset-md-2 text-center" style="border-radius: 10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.30);">
-        <?php
-                        include ("getEvent.php"); 
-                    ?>
+    <?php
+        //header("Access-Control-Allow-Origin: *");
+        //header("Content-Type: application/json; charset=UTF-8");
+        //$x =intval($_GET['x']);
+        $conn = new mysqli("localhost", "root", "", "booking_db");
+        $eventid=$_GET['EventID'];
+        $result = $conn->query("SELECT EventID,EventName,StartEventDate,EndEventDate,StartEventTime,EndEventTime,HeaderUrl,Description 
+            FROM event 
+            where EventID=$eventid");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+
+        $outp =  '<table class="table">
+                <tr><td></td><td class="text-left"><img src="'.$row["HeaderUrl"].'" style="max-width:100%;
+                max-height:100%;"></td></tr>
+                <tr><td></td><th class="text-left"><h4>'.$row["EventName"].'</h4></th><td></td></tr>
+                <tr><td>Start On</td><td>'.$row["StartEventDate"].'</td><td>'.$row["StartEventTime"].'</td></tr>
+                <tr><td>Until</td><td>'.$row["EndEventDate"].'</td><td>'.$row["EndEventTime"].'</td></tr>
+                <tr><td></td><td class="text-left">'.$row["Description"].'</td></tr></table>';
+        
+        echo($outp);
+
+
+
+            $result = $conn->query("SELECT t.Name as Event,l.LocationName as Location,t.TierNo,t.Price as Price
+            FROM  assignlocation a,tier t,event e,location l
+            WHERE e.EventID = a.EventID and a.TierNo= t.TierNo and a.locationID=l.locationID and a.eventID=$eventid");
+
+
+            $outp = '<table class="table">';
+            $outp .= '<tr><td></td><th class="text-center"><h5>Ticket</h5></th><td></td><td></td>';
+            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    
+            $outp .= "<tr>";
+            $outp .= '<td class="text-left" >' . $row["Event"] . '</td>';
+            $outp .= '<td class="text-left" >' . $row["Location"] . '</td>';
+            $outp .=  ($row['Price']>0)? '<td class="text-right">' . $row["Price"] . '฿</td>' :'<td class="text-right">Free</td>';
+            $outp .= '<td><a href="#" class="btn btn-info btn-md">
+            <span class="glyphicon glyphicon-shopping-cart"></span> Add Cart
+            </a></td>';
+            $outp .= "</tr>";
+            }
+            $outp .= "</table>";
+
+
+            echo $outp;
+
+            $conn->close();
+            ?>
             <br>
             <br>
             <br>
@@ -60,11 +105,6 @@
     </div>
     </div>
     <script>
-        function show(eventid){
-            $(document).ready(function (){
-                location.href = "eventPage.php?EventID="+eventid;
-            })
-        }
         $(document).ready(function () {
             checkstatus();
 

@@ -17,16 +17,16 @@
     <title>Organizer</title>
 </head>
 
-<body>
+<body style="margin: 50px 0px 50px 0px;background-image: linear-gradient(to right top, #051937, #182b6c, #4a379f, #8b36ca, #d812eb);">
     <div class="container">
-        <div class="col-md-6 col-md-offset-2">
-            <div class="panel">
-                <div class="panel-body">
+        <!-- <div class="col-md-8 offset-md-2 text-center" style="background-color: white;"> 277 -->
+    
+            <div class="card col-md-8 offset-md-2 text-center" style="border-radius: 10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.30);">
                     <div id="loginform">
                         <form action="#" method="post">
                             <div id="formlogin" class="newlogin">
-                                <div class="row text-center">
-                                    <div class="col-md-12">
+                                <div class="row text-center ">
+                                    <div class="col-md-12" style="margin-top: 50px;">
                                         <h3>Login as organizer</h3>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                 <br>
                                 <span class="btn btn-primary sbtn" id="loginBtn">Login</span>
                             </div>
-                            <div id="formlogout" class="newlogin">
+                            <div id="formlogout" class="newlogin" style="margin-top: 50px;">
                                 <span class="btn btn-warning sbtn" id="logoutBtn">Logout</span>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" id="editBtn">Edit Profile</button>
                                 <span class="btn btn-info sbtn" id="createBtn">Create Event</span>
@@ -57,10 +57,8 @@
                     </div>
                     <hr>
                     <br>
-                </div>
-            </div>
-            <div class="panel">
-                <div class="panel-body text-center">
+                
+            
                     <div id="application">
                         <form action="#" method="post">
                             <div class="row">
@@ -107,7 +105,7 @@
                                 </div>
                             </div>
                             <br>
-                            <span class="btn btn-primary sbtn" id="regBtn">Send Request</span>
+                            <span class="btn btn-success sbtn" id="regBtn">Send Request</span>
 
 
                             <div id="output"></div>
@@ -260,17 +258,27 @@
                     <!-- <span class="btn btn-info xbtn">Check Status</span> -->
                     <div id="organizer">
                         <h3>Organizer profile</h3>
-                        <div align="left">
+                        <div class="col-md-12">
+                            <img src="bear.jpg" style="height: 30%; width: 30%;border-radius: 50%;" alt="Avatar">
+                        </div>
+                        <div align="left" class="col-md-12">
                             <div id="profsec"></div>
                             <div id="emailsec"></div>
                             <div id="telsec"></div>
                         </div>
                     </div>
                     <br>
-                    <hr>    
-                </div>
+                    <hr>   
+                    <div id="showEvent">
+                        <div>
+                        <?php   
+                            include ("getOrgEvent.php");  
+                        ?>
+                        </div>
+                         
+                    </div>  
             </div>
-        </div>
+
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -360,6 +368,23 @@
                 })
             });
         }
+        function cancel(eventid) {
+            $(document).ready(function () {
+                console.log(eventid);
+                var sendCancel = 'eventid=' + eventid;
+                $.ajax({
+                    type: "GET",
+                    url: "cancelEvent.php",
+                    data: sendCancel,
+                    datatype: 'json',
+                    success: function(data){
+                        console.log(data);
+                        $('#showEvent').load('getOrgEvent.php');
+                    }
+                })
+            });
+        }
+
 
         function loadModalEdit(){
                 var select2 = 'selector=' + 2;
@@ -374,7 +399,7 @@
                         console.log(data);
                         var index;
                         var out =
-                        "<table><tr><td>Email:</td><td></td></tr>";
+                        "<table class=\"table\"><tr><td>Email:</td><td></td></tr>";
                         for (index = 0; index < data.length; index++) {
                             out += "<tr><td>" + data[index]['EmailAddress'] +
                                 "</td><td><button type=\"button\" class=\"btn btn-danger\" id=\"delOrgEmail\" onclick=\"delEmail('"+data[index]['EmailAddress']+"')\">Delete</button></td></tr>";
@@ -392,7 +417,7 @@
                         console.log(data);
                         var index;
                         var out =
-                            "<table><tr><td>Tel:</td><td></td></tr>";
+                            "<table class=\"table\"><tr><td>Tel:</td><td></td></tr>";
                         for (index = 0; index < data.length; index++) {
                             out += "<tr><td>" + data[index]['Tel'] +
                                 "</td><td><button type=\"button\" class=\"btn btn-danger\" id=\"delOrgTel\" onclick=\"delTel('"+data[index]['Tel']+"')\" >Delete</button></td></tr>";
@@ -430,7 +455,7 @@
                     datatype: 'json',
                     success: function (data) {
                         console.log(data);
-                        var out = "<table><tr><td>Organizer ID:</td><td>" + data['OrganizerID'] +
+                        var out = "<table class=\"table\"><tr><td>Organizer ID:</td><td>" + data['OrganizerID'] +
                             "</td></tr>" +
                             "<tr><td>Organizer Company:</td><td>" + data['CompanyName'] +
                             "</td></tr>" +
@@ -451,10 +476,10 @@
                         console.log(data);
                         var index;
                         var out =
-                            "<table><tr><td>Email:</td><td></td></tr>";
+                            "<table class=\"table\" ><tr><td>Email:</td><td></td></tr>";
                         for (index = 0; index < data.length; index++) {
-                            out += "<tr><td>" + data[index]['EmailAddress'] +
-                                "</td><td></td></tr>";
+                            out += "<tr><td></td><td>" + data[index]['EmailAddress'] +
+                                "</td></tr>";
                         }
                         out += "</table>"
                         document.getElementById("emailsec").innerHTML = out;
@@ -469,10 +494,10 @@
                         console.log(data);
                         var index;
                         var out =
-                            "<table><tr><td>Tel:</td><td></td></tr>";
+                            "<table class=\"table\" ><tr><td>Tel:</td><td></td></tr>";
                         for (index = 0; index < data.length; index++) {
-                            out += "<tr><td>" + data[index]['Tel'] +
-                                "</td><td></td></tr>";
+                            out += "<tr><td></td><td>" + data[index]['Tel'] +
+                                "</td></tr>";
                         }
                         out += "</table>"
                         document.getElementById("telsec").innerHTML = out;
@@ -492,12 +517,15 @@
                             $('#application').hide();
                             $('#organizer').show();
                             $('#createEvent').hide();
+                            $('#showEvent').show();
+                            $('#showEvent').load('getOrgEvent.php');
                         } else {
                             $('#formlogin').show();
                             $('#formlogout').hide();
                             $('#application').show();
                             $('#organizer').hide();
                             $('#createEvent').hide();
+                            $('#showEvent').hide();
                         }
                     }
                 })
@@ -647,6 +675,11 @@
                         success: function (data) {
                             console.log(data);
                             if (data['type'] == 'SUCCESS') {
+                                $('#showEvent').load('getOrgEvent.php');
+                                $('#organizer').show();
+                                $('#createEvent').hide();
+                            }else{
+                                //
                             }
                         }
                     });
@@ -677,6 +710,11 @@
             });
             $('#createBtn').click(function () {
                 $('#createEvent').show();
+                $('#organizer').hide();
+            });
+            $('#editBtn').click(function () {
+                $('#createEvent').hide();
+                $('#organizer').show();
             });
         });
     </script>
