@@ -2,7 +2,7 @@
     include ("db/database.php");  
     $sql=mysqli_query($con,"SELECT e.EventID as EventID, e.EventName as EventName,StartEventDate, EndEventDate,StartEventTime , EndEventTime ,et.TypeName as EventType,isCancel
     FROM event e,eventtype et
-    where Month(StartEventDate) >= Month(CURRENT_DATE) AND Month(StartEventDate) <= Month(CURRENT_DATE) AND et.TypeID=e.TypeID");
+    where isCancel=False AND Month(StartEventDate) >= Month(CURRENT_DATE) AND Month(StartEventDate) <= Month(CURRENT_DATE) AND et.TypeID=e.TypeID");
 
     $outp = '<br>
     <h3>Recently Event</h3><br><table class="table"><tr><td> Event </td><td> Start Date </td><td> Start Time </td><td> Type </td><td></td>';

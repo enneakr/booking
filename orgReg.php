@@ -259,7 +259,7 @@
                     <div id="organizer">
                         <h3>Organizer profile</h3>
                         <div class="col-md-12">
-                            <img src="bear.jpg" style="height: 30%; width: 30%;border-radius: 50%;" alt="Avatar">
+                            <img src="rs/bear.jpg" style="height: 30%; width: 30%;border-radius: 50%;" alt="Avatar">
                         </div>
                         <div align="left" class="col-md-12">
                             <div id="profsec"></div>
