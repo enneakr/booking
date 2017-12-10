@@ -18,7 +18,7 @@
     <title>Event Paw</title>
 </head>
 
-<body style="margin-bottom: 100px;background-image: linear-gradient(to right top, #051937, #182b6c, #4a379f, #8b36ca, #d812eb);">
+<body style="margin-bottom: 100px;background-image: linear-gradient(to right top, #051937, #182b6c, #4a379f, #8b36ca, #d812eb);height:800px;">
     <nav class="navbar navbar-dark bg-dark justify-content-between" style="-webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
     box-shadow: 0 8px 6px -6px #001;height:50px;">
@@ -45,7 +45,7 @@
                 </a>
             </div>
             <div class="form-group my-auto">
-            <a href="#">
+            <a href="index.php">
                 <i class="fa fa-home fa-2x" aria-hidden="true" style="color: #818181;"></i>
             </a>
         </div>
@@ -54,18 +54,13 @@
     </nav>
     <div class="container">
     <div style="margin-top: 50px;"></div>
-    <div class="card col-md-8 offset-md-2 text-center" style="border-radius: 10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.30);">
-        <?php
-                        include ("getEvent.php"); 
-                    ?>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+    <div class="card col-md-8 offset-md-2 text-center" style="border-radius: 10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.30);     ">
+    <div class="col-md-6 offset-md-3 text-center" >
+    Work In Progress...
+    </div> 
+    <div class="col-md-6 offset-md-3 text-center" >
+    <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+    </div>
     </div>
     </div>
     <script>

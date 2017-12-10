@@ -34,13 +34,13 @@
                 <a href="orgReg.php">
                     <button class="btn btn-outline-info" style="margin-right: 5px;" type="button" id="orgBtn">Organizer</button>
                 </a>
-                <a href="#">
+                <a href="indev.php">
                     <button class="btn btn-outline-info" style="margin-right: 5px;" type="button" id="profBtn">Profile</button>
                 </a>
-                <a href="queryAnalysis.php">
+                <a href="#">
                     <button class="btn btn-outline-info" style="margin-right: 5px;" type="button" id="ordBtn">Analysis</button>
                 </a>
-                <a href="#">
+                <a href="indev.php">
                     <button class="btn btn-outline-info" style="margin-right: 5px;" type="button" id="payBtn">Payment</button>
                 </a>
             </div>
